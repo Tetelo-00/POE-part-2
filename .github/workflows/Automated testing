@@ -1,0 +1,25 @@
+# .github/workflows/ci.yml
+name: Java CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1) Check out your repository
+      - uses: actions/checkout@v3
+
+      # 2) Set up a JDK (here we use Temurin 17; adjust as needed)
+      - uses: actions/setup-java@v3
+        with:
+          distribution: temurin
+          java-version: '17'
+          cache: maven
+
+      # 3) Build & test with Maven
+      - name: Build and run tests
+        run: mvn --batch-mode test
